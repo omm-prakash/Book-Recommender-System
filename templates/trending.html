@@ -4,3 +4,37 @@
 
 {% block trendingA %}active{% endblock trendingA %}
 {% block trending %}<span class="sr-only">(current)</span>{% endblock trending %}
+
+{% block main %}
+<div class="container-fluid" style="background-color: #fcffc6;">
+    <div class="row mx-3 p-2 ">
+        
+        <h1 class="featurette-heading text-danger my-2" style="font-family: 'Prompt', sans-serif;"><strong>Top 100 <span class="text-secondary">Trending Books..</span></strong></h1>
+    </div>
+    <div class="row mx-4" style="font-family: 'Prompt', sans-serif;">
+        <h6 class="text-dark">Top trending books based on the rating of serious readers.</h6>
+
+    </div>
+    <hr>
+    <div class="row mx-4">
+        {% for i in range(100) %}
+        <div class="col-lg-2 col-md-3 col-sm-6" style="">
+            <div class="card p-0 border-0" style="background-color: #fcffc6;">
+                <div class="card-body" style="padding: 0px;">
+                    <a href="/find_book/{{title[i]}}"><img class="card-img-top" src="{{ image[i] }}"
+                            alt="../static/images/alt.png"></a>
+                    <div class="p-2">
+                        <h4 class="mb-0 text-dark" style="font-family:'sans-serif','Prompt';">
+                            <strong>{{title[i]}}</strong></h4>
+
+                        <p class="text-success">-{{author[i]}},<span class="text-muted"> {{publication[i]}}</span></p>
+                        <strong class="d-inline-block mb-2 text-danger">Rating: <span class="text-muted">
+                                {{rating[i]|round(1, 'floor')}}</span></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main %}

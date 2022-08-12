@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Recommend{% endblock title %}
+
+{% block recommendA %}active{% endblock recommendA %}
+{% block recommend %}<span class="sr-only">(current)</span>{% endblock recommend %}
+
+{% block main %}
+
+<div class=" py-2" style="background-color: #ffb785;">
+    <div class="d-flex my-2 my-lg-0 justify-content-center align-items-center">
+        <form action="/recommend" method="post" class="my-2">
+            <label for="book-title">
+                <h5>Enter <strong style="font-family: 'Prompt', sans-serif;">Book Name</strong></h5>
+            </label>&nbsp;&nbsp;
+            <input type="text" id="book-title" class="my-2 my-sm-0 rounded" value="{{title}}" name="title"
+                required>&nbsp;
+            <button class="btn  my-2 my-sm-0 btn-danger text-white" type="submit">Suggest</button>
+        </form>
+    </div>
+</div>
+{% include 'alert.html' %}
+
+{% if books | length > 0 %}
+<div class="container-fluid py-3" style="background-color: #fff7af;">
+    <div class="container border rounded p-3" style="background-color: #ffceac;">
+        <div class="row ">
+            {% for book in books %}
+            <div class="col-lg-3 col-md-4 col-sm-6" style="">
+                <div class="card p-0 border-0" style="background-color: #ffceac;">
+                    <div class="card-body" style="padding: 0px;">
+                        <a href="/find_book/{{book[0]}}"><img class="card-img-top" src="{{book[4]}}"></a>
+                        <div class="p-2">
+                            <h4 class="mb-0 text-dark" style="font-family:'sans-serif','Prompt';">
+                                <strong>{{book[0]}}</strong>
+                            </h4>
+
+                            <p class="text-success">-{{book[1]}},<span class="text-muted"> {{book[3]}}</span></p>
+                            <strong class="d-inline-block mb-2 text-danger">Year of Publication: <span
+                                    class="text-muted">
+                                    {{book[2]}}</span></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% else %}
+<img src="../static/images/bg6.jpeg" alt="" class="w-100" style="height: 84vh;">
+{% endif %}
+
+{% endblock main %}

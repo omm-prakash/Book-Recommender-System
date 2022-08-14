@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}content_base{% endblock title %}
+
+{% block content_baseA %}active{% endblock content_baseA %}
+{% block content_base %}<span class="sr-only">(current)</span>{% endblock content_base %}
+
+{% block main %}
+
+<div class=" py-2" style="background-color: #313C57;">
+    <div class="d-flex my-2 my-lg-0 justify-content-center align-items-center">
+        <form action="/content_base" method="post" class="my-2">
+            <label for="book-title " class="text-white">
+                <h5>Enter <strong style="font-family: 'Prompt', sans-serif;">Book Name</strong></h5>
+            </label>&nbsp;&nbsp;
+            <input type="text" id="book-title" class="my-2 my-sm-0 input-lg" value="{{title}}" name="title"
+                required style="width:450px">&nbsp;
+            <button class="btn  my-2 my-sm-0 text-white" type="submit"
+                style="background-color: #6778a4;color:#40558d">Suggest</button>
+        </form>
+    </div>
+</div>
+{% include 'alert.html' %}
+
+<div class="container-fluid" style="background-color: #B6B1B5;">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-0" style="overflow-y: scroll; height:84vh;">
+            <div class="my-3">
+                <h3 style="font-family: 'sans-serif','Prompt' ;"><strong>Book List</strong></h3>
+                <hr>
+            </div>
+            <div class="list-group">
+                {% for tle in books_titles %}
+                <a href="/find_content_base/{{tle}}"
+                    class="list-group-item list-group-item-action list-group-item-secondary">{{tle}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12 px-0">
+            {% if books | length > 0 %}
+            <div class="container-fluid border rounded p-3" style="background-color: #081023;">
+                <div class="row ">
+                    {% for book in books %}
+                    <!-- 'authors','image-url','title','url','description' -->
+                    <div class="col-lg-3 col-md-4 col-sm-6" style="">
+                        <div class="card p-0 border-0" style="background-color: #081023;">
+                            <div class="card-body" style="padding: 0px;">
+                                <a href="/find_content_base/{{book[2]}}"><img class="card-img-top"
+                                        src="{{book[1]}}"></a>
+                                <div class="p-2">
+                                    <h4 class="mb-0 text-white" style="font-family:'sans-serif','Prompt';">
+                                        <strong>{{book[2]}}</strong>
+                                    </h4>
+                                    <p class="text-success">-{% for author in book[0] %}{{author}} {%
+                                        endfor %} &nbsp;<a href="https://bookdepository.com{{book[3]}}"><i
+                                                class="bi bi-box-arrow-up-right"></i></a></p>
+                                    <hr>
+                                    <p class="text-muted">{{ book[4] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="img-container">
+                <img src="../static/images/bg8.jpeg" alt="" class="w-100" style="height: 84vh;">
+                <div class="top-left">
+                <p style="font-family: 'Prompt', sans-serif; color:white;">&bullet; Get similar book suggestion based on book's content.</p></div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock main %}

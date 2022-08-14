@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}collaborative_filtering{% endblock title %}
+
+{% block collaborative_filteringA %}active{% endblock collaborative_filteringA %}
+{% block collaborative_filtering %}<span class="sr-only">(current)</span>{% endblock collaborative_filtering %}
+
+{% block main %}
+
+<div class=" py-2" style="background-color: #503E38;">
+    <div class="d-flex my-2 my-lg-0 justify-content-center align-items-center">
+        <form action="/collaborative_filtering" method="post" class="my-2">
+            <label for="book-title">
+                <h5 style="color: #ffe2d8;">Enter <strong style="font-family: 'Prompt', sans-serif;">Book Name</strong>
+                </h5>
+            </label>&nbsp;&nbsp;
+            <input type="text" id="book-title" class="my-2 my-sm-0" value="{{title}}" name="title" required style="width:450px">&nbsp;
+            <button class="btn  my-2 my-sm-0 " type="submit"
+                style="background-color: #927166; color:#542b1d;">Suggest</button>
+        </form>
+    </div>
+    <div class="d-flex my-lg-0 justify-content-center align-items-center">
+    </div>
+</div>
+{% include 'alert.html' %}
+
+<div class="container-fluid" style="background-color: #988480;">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-0" style="overflow-y: scroll; height:84vh;">
+            <div class="my-3">
+                <h3 style="font-family: 'sans-serif','Prompt' ;"><strong>Book List</strong></h3>
+                <hr>
+            </div>
+            <div class="list-group rounded" style="background-color: #bca6a1;">
+                {% for tle in book_title %}
+                <a href="/find_collaborative_filtering/{{tle}}"
+                    class="list-group-item list-group-item-action list-group-item-secondary">{{tle}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12 px-0">
+            
+            {% if books | length > 0 %}
+            <div class="container p-3" style="background-color: #202729;">
+                <div class="row ">
+                    {% for book in books %}
+                    <div class="col-lg-3 col-md-4 col-sm-6" style="">
+                        <div class="card p-0 border-0" style="background-color: #202729;">
+                            <div class="card-body" style="padding: 0px;">
+                                <a href="/find_collaborative_filtering/{{book[0]}}"><img class="card-img-top"
+                                    src="{{book[4]}}"></a>
+                                    <div class="p-2">
+                                        <h4 class="mb-0 text-white" style="font-family:'sans-serif','Prompt';">
+                                            <strong>{{book[0]}}</strong>
+                                        </h4>
+                                        
+                                        <p class="text-success">-{{book[1]}},<span class="text-muted"> {{book[3]}}</span>
+                                        </p>
+                                        <strong class="d-inline-block mb-2 text-danger">Year of Publication: <span
+                                            class="text-muted">
+                                            {{book[2]}}</span></strong>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="img-container">
+                <img src="../static/images/bg6.jpeg" alt="" class="w-100" style="height: 84vh;">
+                <div class="top-left">
+                <p style="font-family: 'Prompt', sans-serif; color:white;">&bullet; Get similar book suggestion based on user's rating.</p></div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock main %}

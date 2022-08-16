@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Hybrid Recommender{% endblock title %}
+
+{% block hybrid_recommenderA %}active{% endblock hybrid_recommenderA %}
+{% block hybrid_recommender %}<span class="sr-only">(current)</span>{% endblock hybrid_recommender %}
+
+{% block main %}
+
+<div class=" py-2" style="background-color: #000000;">
+    <div class="d-flex my-2 my-lg-0 justify-content-center align-items-center">
+        <form action="/hybrid_recommender" method="post" class="my-2">
+            <label for="book-title">
+                <h5 style="color: #ffffff;">Enter <strong style="font-family: 'Prompt', sans-serif;">Book Name</strong>
+                </h5>
+            </label>&nbsp;&nbsp;
+            <input type="text" id="book-title" class="my-2 my-sm-0" value="{{title}}" name="title" required
+                style="width:450px">&nbsp;
+            <button class="btn  my-2 my-sm-0 " type="submit"
+                style="background-color: #e8e8e8; color:#141414;">Suggest</button>
+        </form>
+    </div>
+    <div class="d-flex my-lg-0 justify-content-center align-items-center">
+    </div>
+</div>
+{% include 'alert.html' %}
+
+<div class="container-fluid" style="background-color: #787878;">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-0" style="overflow-y: scroll; height:84vh;">
+            <div class="my-3">
+                <h3 style="font-family: 'sans-serif','Prompt' ;"><strong class="">Book List</strong></h3>
+                <hr>
+            </div>
+            <div class="list-group rounded" style="background-color: #ffffff;">
+                {% for tle in book_title %}
+                <a href="/find_hybrid_recommender/{{tle}}"
+                    class="list-group-item list-group-item-action list-group-item-secondary">{{tle}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12 px-0">
+            <!-- 'Book-Title','Book-Author','Year-Of-Publication','Publisher','Image-URL-L','ISBN' -->
+            {% if books | length > 0 %}
+            <div class="container p-3" style="background-color: #1D1D1D;">
+                <div class="row ">
+                    {% for book in books %}
+                    <div class="col-lg-3 col-md-4 col-sm-6" style="">
+                        <div class="card p-0 border-0" style="background-color: #1D1D1D;">
+                            <div class="card-body" style="padding: 0px;">
+                                <a href="/find_hybrid_recommender/{{book[0]}}"><img class="card-img-top"
+                                        src="{{book[4]}}"></a>
+                                <div class="p-2">
+                                    <h4 class="mb-0 text-white" style="font-family:'sans-serif','Prompt';">
+                                        <strong>{{book[0]}}</strong>
+                                    </h4>
+
+                                    <p class="text-success">-{{book[1]}},<span class="text-muted"> {{book[3]}}</span>
+                                    </p>
+                                    <strong class="d-inline-block mb-2 text-danger">ISBN: <span
+                                        class="text-muted">
+                                        {{book[5]}}</span></strong>
+                                <strong class="d-inline-block mb-2 text-danger">Year of Publication: <span
+                                            class="text-muted">
+                                            {{book[2]}}</span></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <div class="img-container">
+                <img src="../static/images/bg2.jpeg" alt="" style="height: auto; width:100%;">
+                <div class="top-left">
+                    <p style="font-family: 'Prompt', sans-serif; color:rgb(255, 0, 0);">&bullet; Get similar book
+                        suggestion based on user's rating, popularity and content similarity.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock main %}

@@ -5,5 +5,5 @@ class Config():
     DEBUG = True
 
 class LocalDevelopmentConfig(Config):
-    DEBUG = False
+    DEBUG = True
 

@@ -24,12 +24,12 @@
 
 <div class="container-fluid" style="background-color: #B6B1B5;">
     <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-0" style="overflow-y: scroll; height:84vh;">
+        <div class="col-lg-3 col-md-3 col-sm-0" >
             <div class="my-3">
                 <h3 style="font-family: 'sans-serif','Prompt' ;"><strong>Book List</strong></h3>
                 <hr>
             </div>
-            <div class="list-group">
+            <div class="list-group" style="overflow-y: scroll; height:84vh;">
                 {% for tle in books_titles %}
                 <a href="/find_content_base/{{tle}}"
                     class="list-group-item list-group-item-action list-group-item-secondary">{{tle}}</a>

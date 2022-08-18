@@ -1,5 +1,6 @@
 # Book-Recommender-System
 Its is a project to recommend similar books to the client, using different techniques.
+The project is hosted [here](https://book-recommender-system-ops.herokuapp.com/home), please do visit.
 
 1. **Popularity Based** 
    - Rank based recommender, using review of reader with high book review frequency. 
